@@ -1,0 +1,54 @@
+{
+  "hosting": {
+    "public": "doclab",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "/login.html",
+        "type": 302
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/Build/*.gz",
+        "headers": [
+          {
+            "key": "Content-Encoding",
+            "value": "gzip"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/javascript"
+          }
+        ]
+      },
+      {
+        "source": "**/Build/*.wasm.gz",
+        "headers": [
+          {
+            "key": "Content-Encoding",
+            "value": "gzip"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/wasm"
+          }
+        ]
+      },
+      {
+        "source": "**/Build/*.br",
+        "headers": [
+          {
+            "key": "Content-Encoding",
+            "value": "brotli"
+          }
+        ]
+      }
+    ]
+  }
+}

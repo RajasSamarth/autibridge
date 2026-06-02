@@ -1,0 +1,14 @@
+# Backend
+backend/target/
+backend/.mvn/
+backend/*.class
+
+# Frontend
+frontend/.firebase/
+frontend/node_modules/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.cache
