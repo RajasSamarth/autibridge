@@ -1,11 +1,9 @@
-// AutiBridge API Helper
-// Replaces Firebase SDK — all calls go to your Spring Boot backend
+﻿// AutiBridge API Helper
+// Replaces Firebase SDK - all calls go to your Spring Boot backend
 
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE = 'https://autibridge-backend.onrender.com/api';
 
 const AutiBridgeAPI = {
-
-  // ─── AUTH ───────────────────────────────────────────
 
   async register(name, email, password) {
     const res = await fetch(`${API_BASE}/auth/register`, {
@@ -15,7 +13,7 @@ const AutiBridgeAPI = {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Registration failed');
-    return data; // { token, name, email, role }
+    return data;
   },
 
   async login(email, password) {
@@ -26,10 +24,8 @@ const AutiBridgeAPI = {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Login failed');
-    return data; // { token, name, email, role }
+    return data;
   },
-
-  // ─── SESSION HELPERS ────────────────────────────────
 
   saveSession(authResponse) {
     localStorage.setItem('isLoggedIn', 'true');
@@ -46,7 +42,7 @@ const AutiBridgeAPI = {
   },
 
   isLoggedIn() {
-    return localStorage.getItem('isLoggedIn') === 'true' 
+    return localStorage.getItem('isLoggedIn') === 'true'
       && localStorage.getItem('token') !== null;
   },
 
@@ -57,8 +53,6 @@ const AutiBridgeAPI = {
   getUsername() {
     return localStorage.getItem('username');
   },
-
-  // ─── AUTHENTICATED REQUESTS ─────────────────────────
 
   async get(endpoint) {
     const res = await fetch(`${API_BASE}${endpoint}`, {
