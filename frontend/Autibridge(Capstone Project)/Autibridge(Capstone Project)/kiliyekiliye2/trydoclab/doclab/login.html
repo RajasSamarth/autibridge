@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutiBridge - Login & Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body { width: 100%; height: 100%; margin: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            overflow: hidden; 
+            display: grid;
+            place-items: center;
+        }
+        .flip-container { perspective: 1000px; width: 420px; position: relative; }
+        .flipper { display: grid; transform-style: preserve-3d; transition: transform 0.8s; }
+        .front, .back { grid-area: 1 / 1; backface-visibility: hidden; width: 100%; }
+        .back { transform: rotateY(180deg); }
+        .flip-container.flipped .flipper { transform: rotateY(180deg); }
+        .card { background: #1f2937; border-radius: 16px; padding: 36px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); }  
+        .btn-google {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 12px;
+            background: #374151;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #ffffff;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-top: 1.25rem;
+        }
+        .btn-google:hover {
+            background: #4b5563;
+            border-color: #3b82f6;
+        }
+        .logo-container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -120px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            pointer-events: none;
+        }
+        .logo-container img { width: 150px; height: auto; opacity: 0.8; pointer-events: auto; }
+    </style>
+</head>
+<body>
+    <div class="flip-container" id="flip-container">
+        <div class="flipper">
+            <div class="front">
+                <div class="card">
+                    <div class="text-center mb-6">
+                        <h1 class="text-3xl font-bold text-white">Welcome to AutiBridge</h1>
+                        <p class="text-gray-400 mt-1">Sign in to continue</p>
+                    </div>
+                    <form id="loginForm" class="space-y-5">
+                        <input id="loginEmail" type="email" placeholder="Email" required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input id="loginPassword" type="password" placeholder="Password" required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button type="submit" class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium">
+                            Login
+                        </button>
+                    </form>
+                    <!-- <div class="flex items-center my-5">
+                        <div class="flex-grow border-t border-gray-600"></div>
+                        <span class="mx-3 text-gray-400 text-xs uppercase font-bold">Or</span>
+                        <div class="flex-grow border-t border-gray-600"></div>
+                    </div> -->
+                    <!-- <button id="googleSignInBtn" class="btn-google">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-5 h-5">
+                        Continue with Google
+                    </button> -->
+                    <p class="text-center text-gray-400 mt-6 text-sm">
+                        Don't have an account? <a href="#" id="showSignup" class="text-blue-500 hover:underline">Sign Up</a>
+                    </p>
+                </div>
+            </div>
+            <div class="back">
+                <div class="card">
+                    <div class="text-center mb-6">
+                        <h1 class="text-3xl font-bold text-white">Create Account</h1>
+                        <p class="text-gray-400 mt-1">Join AutiBridge</p>
+                    </div>
+                    <form id="signupForm" class="space-y-5">
+                        <input id="signupUsername" type="text" placeholder="Username" required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input id="signupEmail" type="email" placeholder="Email" required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input id="signupPassword" type="password" placeholder="Password" required
+                            class="w-full px-4 py-3 rounded-lg bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button type="submit" class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium">
+                            Create Account
+                        </button>
+                    </form>
+                    <p class="text-center text-gray-400 mt-6 text-sm">
+                        Already have an account? <a href="#" id="showLogin" class="text-blue-500 hover:underline">Log In</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="logo-container">
+            <img src="assets/images/Autibridge Logo.png" alt="AutiBridge Logo">
+        </div>
+    </div>
+   <script src="./assets/js/api.js"></script>
+<script src="./assets/js/api.js"></script>
+<script>
+  // Redirect away if already logged in
+  if (AutiBridgeAPI.isLoggedIn()) {
+    window.location.href = 'index.html';
+  }
+
+  // Flip card toggle
+  const flipContainer = document.getElementById('flip-container');
+  document.getElementById('showSignup').onclick = e => {
+    e.preventDefault();
+    flipContainer.classList.add('flipped');
+  };
+  document.getElementById('showLogin').onclick = e => {
+    e.preventDefault();
+    flipContainer.classList.remove('flipped');
+  };
+
+  // ── REGISTER ──────────────────────────────────────
+  document.getElementById('signupForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const name     = document.getElementById('signupUsername').value.trim();
+    const email    = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value;
+
+    const btn = e.target.querySelector('button[type=submit]');
+    btn.disabled = true;
+    btn.textContent = 'Creating account...';
+
+    try {
+      const response = await AutiBridgeAPI.register(name, email, password);
+      AutiBridgeAPI.saveSession(response);
+      window.location.href = 'index.html';
+    } catch (error) {
+      alert('Signup Failed: ' + error.message);
+      btn.disabled = false;
+      btn.textContent = 'Create Account';
+    }
+  };
+
+  // ── LOGIN ─────────────────────────────────────────
+  document.getElementById('loginForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const email    = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+
+    const btn = e.target.querySelector('button[type=submit]');
+    btn.disabled = true;
+    btn.textContent = 'Signing in...';
+
+    try {
+      const response = await AutiBridgeAPI.login(email, password);
+      AutiBridgeAPI.saveSession(response);
+      window.location.href = 'index.html';
+    } catch (error) {
+      alert('Login Failed: Check your email and password.');
+      btn.disabled = false;
+      btn.textContent = 'Login';
+    }
+  };
+</script>
+</body>
+</html>
