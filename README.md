@@ -218,8 +218,8 @@ This project was developed as a Capstone Project at **VIT Bhopal University** by
 | Name | Roll No | Role |
 |------|---------|------|
 | Rajas Samarth | 22BCG10015 | Backend Development (Spring Boot, MySQL, JWT, Deployment) |
-| Dhruv Choksi | 22BCG10018 | Frontend Development |
-| Abhinav Singh | 22BCG10059 | Unity Game Development |
+| Dhruv Choksi | 22BCG10018 | Unity Game Development |
+| Abhinav Singh | 22BCG10059 |  Frontend Development |
 
 
 ---
